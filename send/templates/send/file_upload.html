@@ -1,0 +1,12 @@
+{% extends "send/layout.html" %}
+
+{% block body %}
+    <h1>File Upload</h1>
+    
+    <form enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="file" name="files" multiple>
+        <input type="submit" name="Upload">
+    </form>
+{% endblock %}

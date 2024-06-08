@@ -1,0 +1,26 @@
+{% extends "send/layout.html" %}
+
+{% block body %}
+    <h1>File List</h1>
+    <ul>
+        {% for file in files %}
+        <li><a href="{% url 'send:file_download' file.pk %}">{{ file.file.name }}</a><br><a href="{% url 'send:file_upload' %}?delete_pk={{ file.pk }}">Delete</a></li>
+        {% empty %}
+        <li>No Files.</li>
+        {% endfor %}
+    </ul>
+    <form action="{% url 'send:file_upload' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" value="true">Upload New File</button>
+        {{ form.errors }}  </form>
+
+        <br><br>
+
+    <form action="{% url 'send:file_upload' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" name="delete_all" value="true">Delete All Files</button>
+        <input type="checkbox" name="confirm_delete_all" required> Confirm deletion (This action cannot be undone!)
+        <br>
+        {{ form.errors }}  </form>
+
+{% endblock %}
